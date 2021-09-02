@@ -1,5 +1,7 @@
 const color = require('./Colors');
+const users = require('./Users');
 const readline = require("readline");
+const { getUser } = require('./Users');
 
 
 const rl = readline.createInterface({
@@ -42,9 +44,17 @@ const funcs = {
 
 
     getUser: function(){
-        rl.question(color.blue + '   What is your username? ', function(answer) {
-            console.log('   Welcome ' + answer);
-        rl.close();
+        rl.question(color.blue + '   What is the username you would like to create? ', function(answer) {
+            var myUser = answer.toLowerCase();
+
+            if(users.getUser(answer)){
+                console.log(color.red,'  User exists.');
+                funcs.getUser();
+            }
+            else{
+                console.log(color.green,'  Valid Username');
+            }
+        
         });
     }
 
