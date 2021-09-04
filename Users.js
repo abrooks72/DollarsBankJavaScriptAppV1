@@ -31,6 +31,15 @@ const functions = {
         console.log(Object.keys(map));
         // console.log(func);
                                                 
+    },
+
+    login: function(name, password){
+        if(name in map && map[name] == password){
+            console.log(color.green, '  Access Granted');
+        }
+        else{
+            console.log(color.red, '  The username/password combination is invalid');
+        }
     }
 
     
