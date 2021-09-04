@@ -44,18 +44,27 @@ const funcs = {
 
 
     getUser: function(){
+        let myUser = 'austin'
         rl.question(color.blue + '   What is the username you would like to create? ', function(answer) {
-            var myUser = answer.toLowerCase();
-
-            if(users.getUser(answer)){
+            myUser = answer.toLowerCase();
+            if(users.getUser(myUser)){
                 console.log(color.red,'  User exists.');
                 funcs.getUser();
             }
             else{
-                console.log(color.green,'  Valid Username');
+                console.log(color.green, '  Username available.');
+                funcs.getPass(myUser);
             }
-        
         });
+            
+        
+    },
+
+    getPass: function(name){
+        let password = 'xxxx'
+        rl.question(color.blue + '   What would you like your password set as? ', function(answer){
+            users.addUser(name,password);
+        })
     }
 
     

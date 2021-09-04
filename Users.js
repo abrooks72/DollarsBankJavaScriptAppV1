@@ -1,5 +1,7 @@
+const color = require('./Colors');
+const menu = require('./MenuFunctions');
 var map = {};
-map['austin'] = 'broo2388';
+
 const functions = {
     getUser: function(name){
         var name = name.toLowerCase();
@@ -18,6 +20,12 @@ const functions = {
         else{
             false;
         }
+    },
+
+    addUser: function(name, password){
+        map[name] = password;                                               //This is storing the user lists
+        console.log(color.green, '  Account succesfully created');
+        
     }
 
     
