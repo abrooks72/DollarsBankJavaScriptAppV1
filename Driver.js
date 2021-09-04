@@ -3,5 +3,8 @@ const color = require('./Colors');
 const fun = require('./MenuFunctions')
 console.log(color.bright, color.magenta, ' WELCOME TO DOLLARS BANK!', color.reset);
 
-fun.DefaultMenu();
+
+console.log(fun.DefaultMenu());
+
+
 

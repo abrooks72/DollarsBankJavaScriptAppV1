@@ -1,7 +1,8 @@
 const color = require('./Colors');
 const users = require('./Users');
 const readline = require("readline");
-const { getUser } = require('./Users');
+// const { getUser } = require('./Users');
+// const { setTimeout } = require('timers');
 
 
 const rl = readline.createInterface({
@@ -9,9 +10,11 @@ const rl = readline.createInterface({
     output: process.stdout
 }); 
 
-const funcs = {
+  const funcs = {
+   L: "Austin",
+
     A: function(name){
-        console.log("Hello " + name);
+      console.log("Hello " + name);
     },
 
     B: function(){
@@ -19,7 +22,8 @@ const funcs = {
     },
 
     DefaultMenu: function(){
-        console.log(color.green, '  1: Create New Account', '\n', color.cyan, ' 2: Login to your account', '\n', color.red, color.underscore, '3: Close Browser', color.reset, color.magenta, color.bright);
+    
+       console.log(color.green, '  1: Create New Account', '\n', color.cyan, ' 2: Login to your account', '\n', color.red, color.underscore, '3: Close Browser', color.reset, color.magenta, color.bright);
         //const input = prompt("Enter a valid option 1-3:");
         
         rl.question("   What option would you like to select? ", function (answer) {
@@ -54,17 +58,27 @@ const funcs = {
             else{
                 console.log(color.green, '  Username available.');
                 funcs.getPass(myUser);
+
             }
         });
+
+        
             
         
     },
 
     getPass: function(name){
-        let password = 'xxxx'
+        let password;
+        
         rl.question(color.blue + '   What would you like your password set as? ', function(answer){
+            password = answer;
             users.addUser(name,password);
         })
+
+       setTimeout(()=> {
+           this.DefaultMenu()
+       }, 5000)
+       
     }
 
     

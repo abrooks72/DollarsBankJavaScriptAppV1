@@ -1,6 +1,9 @@
 const color = require('./Colors');
-const menu = require('./MenuFunctions');
+
 var map = {};
+
+// const func= menu.DefaultMenu;
+
 
 const functions = {
     getUser: function(name){
@@ -25,7 +28,9 @@ const functions = {
     addUser: function(name, password){
         map[name] = password;                                               //This is storing the user lists
         console.log(color.green, '  Account succesfully created');
-        
+        console.log(Object.keys(map));
+        // console.log(func);
+                                                
     }
 
     
