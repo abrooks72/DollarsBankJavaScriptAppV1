@@ -4,7 +4,7 @@ const fun = require('./MenuFunctions')
 console.log(color.bright, color.magenta, ' WELCOME TO DOLLARS BANK!', color.reset);
 
 
-console.log(fun.DefaultMenu());
+fun.DefaultMenu();
 
 
 
