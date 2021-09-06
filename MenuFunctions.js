@@ -132,13 +132,10 @@ const rl = readline.createInterface({
     },
 
     addUser: function(name, password){
-        console.log(name);
         map[name] = password;                                               //This is storing the user lists
         funds[name] = 0;
-        console.log(funds);
         console.log(color.green, '  Account succesfully created');
         
-        console.log(Object.keys(map));
         // console.log(func);
                                                 
     },
@@ -147,7 +144,6 @@ const rl = readline.createInterface({
         if(name in map && map[name] == password){
             console.log(color.green, '  Access Granted');
             console.log('   You have: ' + funds.name + '$');
-            console.log(funds);
             funcs.userMenu(name);
         }
         else{
@@ -170,6 +166,7 @@ const rl = readline.createInterface({
                 funcs.Withdraw(name);
             }
             else if(choice == 3){
+                console.log(color.cyan, '\n   Transfer Selected');
                 funcs.Transfer(name);
             }
             else if(choice == 4){
@@ -186,7 +183,6 @@ const rl = readline.createInterface({
             if(answer >= 0){
             //    let user= Object.keys(funds).filter((key)=> key === name)[0]
             //    console.log(user);
-                console.log(color.red, name);
                 funds[name] += parseInt(answer);
                 
                
@@ -198,7 +194,6 @@ const rl = readline.createInterface({
            
 
             console.log(color.green, '  You now have: ' + funds[name] + '$');
-            console.log(funds)
             // console.log(funds[name])
             // console.log(typeof(funds[name]))
             funcs.userMenu(name);
@@ -213,24 +208,36 @@ const rl = readline.createInterface({
         });
         setTimeout(()=> {
             console.log(color.green, '  You now have: ' + funds[name] + '$');
-            console.log(funds);
             funcs.userMenu(name);
         }, 7000)
     },
 
     Transfer: function(name){
         let transferAccount;
-        let transferAmount = 0;
-        rl.question("   Whose account would you like to transfer funds into?", function(answer){
+        rl.question("   Whose account would you like to transfer funds into? ", function(answer){
             transferAccount = answer;
         });
         setTimeout(()=> {
-            console.log('Accessing ' + transferAccount + ' Account...');
+            console.log('   Accessing ' + transferAccount + ' Account...');
+            funcs.TransferAmmount(name, transferAccount);
         }, 5000)
-        rl.question("   How much would you like to transfer? ", function(answer){
-            transferAmount = answer;
-        });
+
+        
     },
+
+    TransferAmmount: function(myName, name){
+        let transferAmount = 0;
+        rl.question("   How much money would you like to transfer? ", function(answer){
+            transferAmount = parseInt(answer);
+            funds[myName] -= transferAmount;
+            funds[name] += transferAmount;
+        });
+        setTimeout(()=> {
+            console.log('   Transferring ' + transferAmount + ' to account: ' + name);
+            console.log(color.green, '  You now have: ' + funds[name] + '$');
+            funcs.userMenu(myName);
+        }, 5000)
+    }
 
     
 
