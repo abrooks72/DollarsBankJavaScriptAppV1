@@ -1,8 +1,16 @@
 const color = require('./Colors');
 const readline = require("readline");
+const defaultMenu = require('./DefaultMenu');
+
+
+
 
 var map = {};
-var funds = {};
+var funds = {
+    name: 0
+};
+
+let totalAmount= 0;
 // const func= menu.DefaultMenu;
 var money = 0;
 
@@ -63,10 +71,15 @@ const functions = {
                 functions.Deposit(name);
             }
             else if(choice == 2){
-                //Withdraw(name);
+                console.log(color.red, '\n   Withdraw Selected');
+                functions.Withdraw(name);
             }
             else if(choice == 3){
-                //Transfer(name);
+                functions.Transfer(name);
+            }
+            else if(choice == 4){
+                 defaultMenu.DefaultMenu();
+                
             }
             //rl.close();
         });
@@ -76,14 +89,44 @@ const functions = {
         let amount = 0;
         rl.question("   How much money would you like to deposit? ", function(answer){
             if(answer >= 0){
-                funds[name] =funds[name] + parseInt(answer);
+                totalAmount += parseInt(answer);
             }
             
         });
         setTimeout(()=> {
-            console.log(color.green, '  You now have: ' + funds[name] + '$');
+            console.log(color.green, '  You now have: ' + totalAmount + '$');
+            // console.log(funds[name])
+            // console.log(typeof(funds[name]))
+            functions.userMenu();
         }, 5000)
       
+    },
+
+    Withdraw: function(name){
+        rl.question("   How much money would you like to withdraw? ", function(answer){
+            if(totalAmount >= answer && answer >= 0){
+                totalAmount -= parseInt(answer);
+            }
+            
+        });
+        setTimeout(()=> {
+            console.log(color.green, '  You now have: ' + totalAmount + '$');
+            functions.userMenu();
+        }, 5000)
+    },
+
+    Transfer: function(name){
+        let transferAccount;
+        let transferAmount = 0;
+        rl.question("   Whose account would you like to transfer funds into?", function(answer){
+            transferAccount = answer;
+        });
+        setTimeout(()=> {
+            console.log('Accessing ' + transferAccount + ' Account...');
+        }, 5000)
+        rl.question("   How much would you like to transfer? ", function(answer){
+            transferAmount = answer;
+        });
     }
 
     
