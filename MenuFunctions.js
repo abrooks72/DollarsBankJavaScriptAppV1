@@ -64,7 +64,7 @@ const rl = readline.createInterface({
                 
                 
             }
-            else if(answer == 3){
+            else{
                 console.log(color.red, '  Closing Browser');
             }
             // rl.close();
@@ -143,11 +143,12 @@ const rl = readline.createInterface({
     login: function(name, password){
         if(name in map && map[name] == password){
             console.log(color.green, '  Access Granted');
-            console.log('   You have: ' + funds.name + '$');
+            console.log('   You have: ' + funds[name] + '$');
             funcs.userMenu(name);
         }
         else{
             console.log(color.red, '  The username/password combination is invalid');
+            funcs.DefaultMenu();
         }
     },
 
@@ -203,7 +204,13 @@ const rl = readline.createInterface({
 
     Withdraw: function(name){
         rl.question("   How much money would you like to withdraw? ", function(answer){
-            funds[name] -= parseInt(answer);
+            if(funds[name] >= answer){
+                funds[name] -= parseInt(answer);
+            }
+            else{
+                console.log(color.red, '  Insufficient Funds');
+            }
+            
             
         });
         setTimeout(()=> {
@@ -215,12 +222,16 @@ const rl = readline.createInterface({
     Transfer: function(name){
         let transferAccount;
         rl.question("   Whose account would you like to transfer funds into? ", function(answer){
-            transferAccount = answer;
+            if(answer in map){
+                transferAccount = answer;
+                funcs.TransferAmmount(name, transferAccount);
+            }
+            else{
+                console.log(color.red, '  User does not exist, returning to main menu');
+                funcs.userMenu(name);
+            }
+            
         });
-        setTimeout(()=> {
-            console.log('   Accessing ' + transferAccount + ' Account...');
-            funcs.TransferAmmount(name, transferAccount);
-        }, 5000)
 
         
     },
@@ -229,12 +240,19 @@ const rl = readline.createInterface({
         let transferAmount = 0;
         rl.question("   How much money would you like to transfer? ", function(answer){
             transferAmount = parseInt(answer);
-            funds[myName] -= transferAmount;
-            funds[name] += transferAmount;
+            if(funds[myName] >= transferAmount){
+                funds[myName] -= transferAmount;
+                funds[name] += transferAmount;
+            }
+            else{
+                console.log(color.red, '  Insufficient Funds');
+
+            }
+            
         });
         setTimeout(()=> {
             console.log('   Transferring ' + transferAmount + ' to account: ' + name);
-            console.log(color.green, '  You now have: ' + funds[name] + '$');
+            console.log(color.green, '  You now have: ' + funds[myName] + '$');
             funcs.userMenu(myName);
         }, 5000)
     }

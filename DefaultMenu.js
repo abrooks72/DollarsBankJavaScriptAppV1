@@ -47,6 +47,7 @@ const funcs = {
              }
              else if(answer == 3){
                  console.log(color.red, '  Closing Browser');
+                 process.exit(0);
              }
              // rl.close();
            });
