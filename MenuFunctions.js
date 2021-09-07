@@ -65,7 +65,7 @@ const rl = readline.createInterface({
                 
             }
             else{
-                console.log(color.red, '  Closing Browser');
+                console.log(color.red, '  Closing Browser', color.reset);
             }
             // rl.close();
           });
@@ -154,8 +154,8 @@ const rl = readline.createInterface({
 
     userMenu: function(name){
         let choice = 0;
-        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.blue, ' 4: Logout');
-        rl.question("   What option would you like to select? ", function (answer){
+        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.reset, ' 4: User Info', '\n', color.blue, ' 5: Logout');
+        rl.question(color.reset + "   What option would you like to select? ", function (answer){
             choice = answer;
         
             if(choice == 1){
@@ -169,6 +169,11 @@ const rl = readline.createInterface({
             else if(choice == 3){
                 console.log(color.cyan, '  Transfer Selected');
                 funcs.Transfer(name);
+            }
+            else if(choice == 4){
+                console.log('   Display info: ');
+                console.log('   Username: ' + name + ' Password: ' + map[name]);
+                funcs.userMenu(name);
             }
             else{
                 funcs.DefaultMenu();
