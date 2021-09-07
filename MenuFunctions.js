@@ -159,18 +159,18 @@ const rl = readline.createInterface({
             choice = answer;
         
             if(choice == 1){
-                console.log(color.green, '\n   Deposit Selected');
+                console.log(color.green, '  Deposit Selected');
                 funcs.Deposit(name);
             }
             else if(choice == 2){
-                console.log(color.red, '\n   Withdraw Selected');
+                console.log(color.red, '  Withdraw Selected');
                 funcs.Withdraw(name);
             }
             else if(choice == 3){
-                console.log(color.cyan, '\n   Transfer Selected');
+                console.log(color.cyan, '  Transfer Selected');
                 funcs.Transfer(name);
             }
-            else if(choice == 4){
+            else{
                 funcs.DefaultMenu();
                 
             }
