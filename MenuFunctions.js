@@ -51,7 +51,7 @@ const rl = readline.createInterface({
                     name = answer;
                     if(!funcs.getUser2(answer)){
                         console.log(color.red + '   No Such User, returning to main menu');
-                      funcs.DefaultMenu();
+                        funcs.DefaultMenu();
                     }
                     else{
                         rl.question("   What is your password? ", function(answer){
@@ -64,8 +64,12 @@ const rl = readline.createInterface({
                 
                 
             }
-            else{
+            else if(answer == 3){
                 console.log(color.red, '  Closing Browser', color.reset);
+            }
+            else{
+                console.log(color.red, '  *Error* \n   Please select an option between 1-3');
+                funcs.DefaultMenu();
             }
             // rl.close();
           });
@@ -175,9 +179,13 @@ const rl = readline.createInterface({
                 console.log('   Username: ' + name + ' Password: ' + map[name]);
                 funcs.userMenu(name);
             }
-            else{
+            else if(choice == 5){
                 funcs.DefaultMenu();
                 
+            }
+            else{
+                console.log(color.red, '  *Error* \n   Please select an option between 1-5');
+                funcs.userMenu(name);
             }
             //rl.close();
         });
@@ -194,6 +202,9 @@ const rl = readline.createInterface({
                
 
             }
+            else{
+                console.log(color.red, '  You cannot deposit a negative amount');
+            }
             
         });
         setTimeout(()=> {
@@ -209,8 +220,11 @@ const rl = readline.createInterface({
 
     Withdraw: function(name){
         rl.question("   How much money would you like to withdraw? ", function(answer){
-            if(funds[name] >= answer){
+            if(funds[name] >= answer && answer > 0){
                 funds[name] -= parseInt(answer);
+            }
+            else if(answer < 0){
+                console.log(color.red, '  You cannot withdraw a negative amount');
             }
             else{
                 console.log(color.red, '  Insufficient Funds');
@@ -248,6 +262,9 @@ const rl = readline.createInterface({
             if(funds[myName] >= transferAmount){
                 funds[myName] -= transferAmount;
                 funds[name] += transferAmount;
+            }
+            else if(answer < 0){
+                console.log(color.red, '  You cannot transfer a negative amount');
             }
             else{
                 console.log(color.red, '  Insufficient Funds');
