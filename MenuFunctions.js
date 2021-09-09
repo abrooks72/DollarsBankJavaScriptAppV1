@@ -255,11 +255,11 @@ const rl = readline.createInterface({
         
     },
 
-    TransferAmmount: function(myName, name){
+    TransferAmmount: function(myName, name){                                                    // Transfering negative amounts
         let transferAmount = 0;
         rl.question("   How much money would you like to transfer? ", function(answer){
             transferAmount = parseInt(answer);
-            if(funds[myName] >= transferAmount){
+            if(funds[myName] >= transferAmount && transferAmount > 0){
                 funds[myName] -= transferAmount;
                 funds[name] += transferAmount;
             }
