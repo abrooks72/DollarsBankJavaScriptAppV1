@@ -158,7 +158,7 @@ const rl = readline.createInterface({
 
     userMenu: function(name){
         let choice = 0;
-        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.reset, ' 4: User Info', '\n', color.blue, ' 5: Logout');
+        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.reset, ' 4: User Info', '\n', color.magenta, ' 5: Edit Username', '\n', color.blue, ' 6: Logout');
         rl.question(color.reset + "   What option would you like to select? ", function (answer){
             choice = answer;
         
@@ -180,8 +180,10 @@ const rl = readline.createInterface({
                 funcs.userMenu(name);
             }
             else if(choice == 5){
+                funcs.EditUser(name);
+            }
+            else if(choice == 6){
                 funcs.DefaultMenu();
-                
             }
             else{
                 console.log(color.red, '  *Error* \n   Please select an option between 1-5');
@@ -277,6 +279,23 @@ const rl = readline.createInterface({
             console.log(color.green, '  You now have: ' + funds[myName] + '$');
             funcs.userMenu(myName);
         }, 5000)
+    },
+
+    EditUser: function(name){
+        rl.question("   What would you like your new username to be? ", function(answer){
+            if(answer in map){
+                console.log(color.red, '  That username already exists');
+                funcs.userMenu(name);
+            }
+            else{
+                map[answer] = map[name];
+                delete map[name];
+                funds[answer] = funds[name];
+                delete funds[name];
+                funcs.userMenu(answer);
+            }
+        });
+        
     }
 
     
