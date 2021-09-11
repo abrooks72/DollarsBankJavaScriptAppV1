@@ -275,7 +275,7 @@ const rl = readline.createInterface({
         rl.question("   What would you like your new username to be? ", function(answer){
             if(answer in map){
                 console.log(color.red, '  That username already exists');
-                funcs.userMenu(name);
+                funcs.EditPass(answer);
             }
             else{
                 map[answer] = map[name];
