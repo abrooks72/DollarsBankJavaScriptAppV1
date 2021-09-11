@@ -105,15 +105,17 @@ const rl = readline.createInterface({
         let password;
         
         rl.question(color.blue + '   What would you like your password set as? ', function(answer){
-            password = answer;
-            funcs.addUser(name,password);
+            if(answer.length < 6){
+                console.log(color.red, '  Password must be 6 or more characters');
+                funcs.getPass(name);
+            }
+            else{
+                password = answer;
+                funcs.addUser(name,password);
+            }
+            
         })
-
-       setTimeout(()=> {
-           this.DefaultMenu();
-       }, 7000)
-          
-       
+              
     },
 
     getUser2: function(name){
@@ -139,7 +141,7 @@ const rl = readline.createInterface({
         map[name] = password;                                               //This is storing the user lists
         funds[name] = 0;
         console.log(color.green, '  Account succesfully created');
-        
+        funcs.DefaultMenu();
         // console.log(func);
                                                 
     },
@@ -186,7 +188,7 @@ const rl = readline.createInterface({
                 funcs.DefaultMenu();
             }
             else{
-                console.log(color.red, '  *Error* \n   Please select an option between 1-5');
+                console.log(color.red, '  *Error* \n   Please select an option between 1-6');
                 funcs.userMenu(name);
             }
             //rl.close();
@@ -256,6 +258,7 @@ const rl = readline.createInterface({
             if(funds[myName] >= transferAmount && transferAmount > 0){
                 funds[myName] -= transferAmount;
                 funds[name] += transferAmount;
+                console.log(color.green, '  You now have: ' + funds[myName] + '$');
                 funcs.userMenu(myName);
             }
             else if(answer < 0){
