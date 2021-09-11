@@ -101,7 +101,7 @@ const rl = readline.createInterface({
         
     },
 
-    getPass: function(name){
+    getPass: function(name){                                                                            // Only function slowing things down
         let password;
         
         rl.question(color.blue + '   What would you like your password set as? ', function(answer){
@@ -200,23 +200,16 @@ const rl = readline.createInterface({
             //    let user= Object.keys(funds).filter((key)=> key === name)[0]
             //    console.log(user);
                 funds[name] += parseInt(answer);
-                
-               
+                console.log(color.green, '  You now have: ' + funds[name] + '$');
+               funcs.userMenu(name);
 
             }
             else{
                 console.log(color.red, '  You cannot deposit a negative amount');
+                funcs.userMenu(name);
             }
             
         });
-        setTimeout(()=> {
-           
-
-            console.log(color.green, '  You now have: ' + funds[name] + '$');
-            // console.log(funds[name])
-            // console.log(typeof(funds[name]))
-            funcs.userMenu(name);
-        }, 5000)
       
     },
 
@@ -224,20 +217,21 @@ const rl = readline.createInterface({
         rl.question("   How much money would you like to withdraw? ", function(answer){
             if(funds[name] >= answer && answer > 0){
                 funds[name] -= parseInt(answer);
+                console.log(color.green, '  You now have: ' + funds[name] + '$');
+                funcs.userMenu(name);
             }
             else if(answer < 0){
                 console.log(color.red, '  You cannot withdraw a negative amount');
+                funcs.userMenu(name);
             }
             else{
                 console.log(color.red, '  Insufficient Funds');
+                funcs.userMenu(name);
             }
             
             
         });
-        setTimeout(()=> {
-            console.log(color.green, '  You now have: ' + funds[name] + '$');
-            funcs.userMenu(name);
-        }, 7000)
+        
     },
 
     Transfer: function(name){
@@ -252,9 +246,7 @@ const rl = readline.createInterface({
                 funcs.userMenu(name);
             }
             
-        });
-
-        
+        });   
     },
 
     TransferAmmount: function(myName, name){                                                    // Transfering negative amounts
@@ -264,21 +256,19 @@ const rl = readline.createInterface({
             if(funds[myName] >= transferAmount && transferAmount > 0){
                 funds[myName] -= transferAmount;
                 funds[name] += transferAmount;
+                funcs.userMenu(myName);
             }
             else if(answer < 0){
                 console.log(color.red, '  You cannot transfer a negative amount');
+                funcs.userMenu(myName);
             }
             else{
                 console.log(color.red, '  Insufficient Funds');
+                funcs.userMenu(myName);
 
             }
             
         });
-        setTimeout(()=> {
-            console.log('   Transferring ' + transferAmount + ' to account: ' + name);
-            console.log(color.green, '  You now have: ' + funds[myName] + '$');
-            funcs.userMenu(myName);
-        }, 5000)
     },
 
     EditUser: function(name){
@@ -292,10 +282,23 @@ const rl = readline.createInterface({
                 delete map[name];
                 funds[answer] = funds[name];
                 delete funds[name];
-                funcs.userMenu(answer);
+                funcs.EditPass(answer);
             }
         });
         
+    },
+
+    EditPass: function(name){
+        rl.question("   What would you like your new password to be? ", function(answer){
+            if(map[name] == answer){
+                console.log(color.red, '  Keeping the same password');
+                funcs.userMenu(name);
+            }
+            else{
+                map[name] = answer;
+                funcs.userMenu(name);
+            }
+        });
     }
 
     
