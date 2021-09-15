@@ -298,7 +298,7 @@ const rl = readline.createInterface({
                 delete map[name];
                 funds[answer] = funds[name];
                 delete funds[name];
-                
+                funcs.userMenu(answer);
             }
         });
         
