@@ -275,13 +275,13 @@ const rl = readline.createInterface({
     },
 
     Edit: function(name){
-        console.log(color.blue, '  1: Username', '\n', color.magenta, ' 2: Password');
-        rl.question(color.cyan, "  What would you like to edit? ", function(answer){
+        console.log(color.blue, '  1: Username', '\n', color.magenta, ' 2: Password', color.reset);
+        rl.question("   What would you like to edit? ", function(answer){
             if(answer == 1){
-                //Edit user
+                funcs.EditUser(name);
             }
             else if(answer == 2){
-                //Edit Password
+                funcs.EditPass(name);
             }
         });
     },
@@ -298,7 +298,7 @@ const rl = readline.createInterface({
                 delete map[name];
                 funds[answer] = funds[name];
                 delete funds[name];
-                funcs.EditPass(answer);
+                
             }
         });
         
