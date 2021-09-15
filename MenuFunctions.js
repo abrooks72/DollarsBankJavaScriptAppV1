@@ -160,7 +160,7 @@ const rl = readline.createInterface({
 
     userMenu: function(name){
         let choice = 0;
-        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.reset, ' 4: User Info', '\n', color.magenta, ' 5: Edit Username', '\n', color.blue, ' 6: Logout');
+        console.log(color.green, '  1: Deposit', '\n', color.red, ' 2: Withdraw', '\n', color.cyan, ' 3: Transfer', '\n', color.reset, ' 4: User Info', '\n', color.magenta, ' 5: Edit Account', '\n', color.blue, ' 6: Logout');
         rl.question(color.reset + "   What option would you like to select? ", function (answer){
             choice = answer;
         
@@ -182,7 +182,7 @@ const rl = readline.createInterface({
                 funcs.userMenu(name);
             }
             else if(choice == 5){
-                funcs.EditUser(name);
+                funcs.Edit(name);
             }
             else if(choice == 6){
                 funcs.DefaultMenu();
@@ -275,7 +275,15 @@ const rl = readline.createInterface({
     },
 
     Edit: function(name){
-        // Ask what they would like to edit
+        console.log(color.blue, '  1: Username', '\n', color.magenta, ' 2: Password');
+        rl.question(color.cyan, "  What would you like to edit? ", function(answer){
+            if(answer == 1){
+                //Edit user
+            }
+            else if(answer == 2){
+                //Edit Password
+            }
+        });
     },
 
 
