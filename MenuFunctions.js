@@ -274,6 +274,11 @@ const rl = readline.createInterface({
         });
     },
 
+    Edit: function(name){
+        // Ask what they would like to edit
+    },
+
+
     EditUser: function(name){
         rl.question("   What would you like your new username to be? ", function(answer){
             if(answer in map){
